@@ -1,5 +1,3 @@
-
-
 import React from "react";
 import {
   TextField,
@@ -10,26 +8,25 @@ import {
   Paper,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
-import  Login  from "../../services/employer/login"; // Assuming login is a service function
+import Login from "../../services/employer/login";
 import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     try {
-      // Handle email/password login
       const response = await Login(data);
-      console.log("response",response)
-      
+      console.log("response", response);
       if (response && response.data) {
+       
         if (response.data.message === "Login successful") {
-          // navigate("/employer/dashboard");  // Navigate to the home page or dashboard
+          navigate("/employer/dashboard");
         } else {
           console.log("Login failed: ", response.data.message);
         }

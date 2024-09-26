@@ -1,13 +1,18 @@
+import axiosInstance from "../../utilities/axiosInstance";
 
-  import axiosInstance from "../../utilities/axiosInstance";
-
-
-  const Login=async(data)=>{
-     
-    const response= await axiosInstance.post("/employer/login",data)
-    console.log("response",response)
+const Login = async(data) => {
+  try {
+    const response = await axiosInstance.post("/employer/login", data);
     
-    return response.data
-  }
+    console.log("response", response);
 
-  export default Login 
+  
+    return response
+  } catch (error) {
+   
+    console.error("Error during login:", error.response ? error.response.data : error.message);
+    throw error; 
+  }
+};
+
+export default Login;

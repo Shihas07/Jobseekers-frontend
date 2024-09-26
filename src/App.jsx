@@ -27,7 +27,7 @@ function App() {
             }
           />
 
-             <Route path="/employer/*" element={<EmployerRoute/>}/>
+          <Route path="/employer/*" element={<EmployerRoute />} />
         </Routes>
       </Router>
     </>

@@ -5,6 +5,7 @@ import DashBord from "../pages/admin/DashBord";
 import UserMangement from "../pages/admin/UserMangement";
 import Category from "../pages/admin/category";
 import EmployerManagement from "../pages/admin/EmployerManagement";
+import PaymentPage from "../pages/admin/paymentPage";
 
 export default function AdminRoute() {
   return (
@@ -13,8 +14,9 @@ export default function AdminRoute() {
       <Route element={<AdminLayOut />}>
         <Route path="dashboard" element={<DashBord />} />
         <Route path="userManagement" element={<UserMangement />} />
-        <Route path='categoreyManagement' element={<Category />} />
-        <Route path="employerManagement" element={<EmployerManagement/>}/>
+        <Route path="categoreyManagement" element={<Category />} />
+        <Route path="employerManagement" element={<EmployerManagement />} />
+        <Route path="payment" element={<PaymentPage />} />
         {/* Add other admin routes here */}
       </Route>
     </Routes>

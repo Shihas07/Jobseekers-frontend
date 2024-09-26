@@ -36,7 +36,7 @@ export default function Category() {
 
   useEffect(() => {
     fetchCategory()
-  }, []);
+  }, []); 
 
   const handleSubmit = async (data) => {
     // console.log("formdata", data); // Log the form data

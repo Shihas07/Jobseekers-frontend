@@ -14,7 +14,7 @@ export default function EmployerLayout() {
     { label: "Application Mangent", icon: <FolderIcon />,   },
 
     { label: "Profile Management", icon: <JobIcon />  },
-    { label: "Payment", icon: <PaymentIcon />   },
+    { label: "Payment", icon: <PaymentIcon />,path:"/employer/PaymentMangeMent"},
     { label: "Logout", icon: <LogoutIcon /> },
   ];
 

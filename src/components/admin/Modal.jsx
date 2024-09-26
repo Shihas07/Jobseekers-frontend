@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Dialog, DialogTitle, DialogContent, TextField, Button } from '@mui/material';
 
-export default function CommonModal({ open, handleClose, title, buttonText, fields, onSubmit,editData }) {
+export default function CommonModal({ open, handleClose, title, buttonText, fields=[], onSubmit,editData }) {
   const [formValues, setFormValues] = useState({});
    
-   console.log("editDatachild",formValues)
+  //  console.log("editDatachild",formValues)
    // Store the values of multiple inputs
 
      useEffect(()=>{
