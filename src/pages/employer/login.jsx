@@ -10,8 +10,14 @@ import {
 import { useForm } from "react-hook-form";
 import Login from "../../services/employer/login";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { setEmployer } from "../../redux/slice";
 
 const LoginPage = () => {
+ 
+
+  const dispatch=useDispatch()
   const navigate = useNavigate();
   const {
     register,
@@ -22,10 +28,12 @@ const LoginPage = () => {
   const onSubmit = async (data) => {
     try {
       const response = await Login(data);
-      console.log("response", response);
+      // console.log("response", response);
       if (response && response.data) {
-       
+             dispatch(setEmployer(response.data.employer))
+             
         if (response.data.message === "Login successful") {
+                
           navigate("/employer/dashboard");
         } else {
           console.log("Login failed: ", response.data.message);

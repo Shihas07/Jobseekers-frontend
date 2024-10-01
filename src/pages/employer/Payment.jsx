@@ -4,8 +4,12 @@ import CommonInput from "../../components/Common/TextField";
 import FetchData from "../../services/employer/fetchToken";
 import { useRazorpay } from "react-razorpay";
 import payment from "./PostRazorpay";
+import { useSelector } from "react-redux";
+import postPaymentDetails from "../../services/postPayMentDeatils";
 
 export default function PaymentCard() {
+  const employer=useSelector(state=>state.employer.employerDetails)
+  console.log(employer)
   const { error, isLoading, Razorpay } = useRazorpay();
   const [count, setCount] = useState(""); // Token count state
   const [price, setPrice] = useState(0); // Total price state
@@ -18,7 +22,7 @@ export default function PaymentCard() {
     try {
       const response = await FetchData();
       setFetchPrice(response.data[0].price);
-      
+
       console.log("Fetched price:", response.data[0].price);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -39,7 +43,7 @@ export default function PaymentCard() {
   const handleRazorpay = async () => {
     try {
       const data = {
-        amount: price * 100, // Convert to paise
+        amount: price*100, // Convert to paise
         currency: "INR",
         receipt: "receipt_order_xyz",
       };
@@ -55,17 +59,33 @@ export default function PaymentCard() {
         currency: paymentResponse.currency,
         name: 'Job seekers',
         description: 'Test Transaction',
-        order_id: paymentResponse.id, // Order ID from response
-        handler: (response) => {
-          console.log('Payment successful!', response);
-          alert('Payment Successful!');
-               
+        order_id: paymentResponse.id, 
+        // Order ID from response
+
+        handler: async (response) => {
+          const paymentData = {
+            employer: employer._id,
+            paymentId: response.razorpay_payment_id,
+            amount: data.amount,
+            token: count,
+          };
+        
+          try {
+            const paymentResponse = await postPaymentDetails(paymentData);
+            console.log('Payment successful!', paymentResponse);
+            alert('Payment Successful!');
+          } catch (error) {
+            console.error('Error sending payment details to the server:', error);
+            alert('There was an error processing your payment. Please try again.');
+          }
+        
+        
           // Send response to your backend for verification
         },
         prefill: {
-          name: 'Your Customer Name',
-          email: 'customer@example.com',
-          contact: '7994126039',
+          name: employer.name,
+          email: employer.email,
+          contact: employer.phone,
         },
         theme: {
           color: '#F37254',

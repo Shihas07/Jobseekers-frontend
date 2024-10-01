@@ -1,12 +1,22 @@
+// src/features/userSlice.js
+import { createSlice } from '@reduxjs/toolkit';
 
+const initialState = {
+  employerDetails: null, // Initial state for employer details
+};
 
-// import { createSlice } from "@reduxjs/toolkit";
+const employerSlice = createSlice({
+  name: 'employer',
+  initialState,
+  reducers: {
+    setEmployer: (state, action) => {
+      state.employerDetails = action.payload; // Set employer details
+    },
+    clearEmployer: (state) => {
+      state.employerDetails = null; // Clear employer details
+    },
+  },
+});
 
-
-// const initialState = {
-//   user: null,   
-//   token: null,  
-//   isLoggedIn: false,  
-// }
-
-   
+export const { setEmployer, clearEmployer } = employerSlice.actions;
+export default employerSlice.reducer;
