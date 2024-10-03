@@ -8,7 +8,7 @@ import deleteToken from "../../services/admin/DeleteToken";
 export default function PaymentPage() {
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState([]); 
-  console.log("data", formData);
+  // console.log("data", formData);
 
   const label = "Add Token";
   const fields = [
@@ -18,7 +18,7 @@ export default function PaymentPage() {
 
   const OpenModal = () => {
     setOpen(true);
-    console.log("clicked");
+    // console.log("clicked");
   };
 
   const handleClose = () => {
@@ -28,7 +28,7 @@ export default function PaymentPage() {
     try {
       const response = await FetchData();
       setFormData(response.data); // Update state with fetched tokens
-      console.log("response", response);
+      // console.log("response", response);
     } catch (error) {
       console.error("Fetching token error", error);
     }
@@ -56,7 +56,7 @@ export default function PaymentPage() {
   const handleDelete = async(id) => {
     try {
      await  deleteToken(id); 
-     console.log("click me")
+    //  console.log("click me")
       fetchToken()
     } catch (error) {
       console.error("Deleting token error", error);

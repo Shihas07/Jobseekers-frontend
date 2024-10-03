@@ -21,7 +21,7 @@ export default function AdminLayout() {
     <div className="flex flex-col lg:flex-row min-h-screen">
       {/* Sidebar on the left */}
       <div className="w-full lg:w-1/4 text-white">
-        <Sidebar title={title} navItems={navItems} />
+        <Sidebar  title={title} navItems={navItems} />
       </div>
 
       {/* Content on the right */}
