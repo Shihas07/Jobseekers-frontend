@@ -6,7 +6,7 @@ const FetchData=async()=>{
     
        const response=await axiosInstance.get("/employer/fetchTokenPrice")
 
-       console.log("response")
+       // console.log("response",response)
        return response.data
 }
 

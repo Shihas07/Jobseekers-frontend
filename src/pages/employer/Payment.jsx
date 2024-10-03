@@ -43,7 +43,7 @@ export default function PaymentCard() {
   const handleRazorpay = async () => {
     try {
       const data = {
-        amount: price*100, // Convert to paise
+        amount: price*100, 
         currency: "INR",
         receipt: "receipt_order_xyz",
       };
@@ -54,8 +54,8 @@ export default function PaymentCard() {
 
       // Open Razorpay payment modal
       const options = {
-        key: import.meta.env.VITE_RAZORPAY_KEY_ID, // Replace with your Razorpay Key
-        amount: paymentResponse.amount, // Amount from response
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID, 
+        amount: paymentResponse.amount, 
         currency: paymentResponse.currency,
         name: 'Job seekers',
         description: 'Test Transaction',
