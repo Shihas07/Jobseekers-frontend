@@ -93,7 +93,7 @@ export default function PaymentCard() {
       };
 
       const rzp = new Razorpay(options);
-      rzp.open(); // Open Razorpay modal
+      rzp.open(); 
     } catch (error) {
       console.error("Error during payment:", error);
     }
