@@ -21,10 +21,11 @@ const jobData = [
   // Add more job data here
 ];
 
-export default function TableJobPost({jobs}) {
+export default function TableJobPost({jobs,job}) {
   const handleEdit = (id) => {
-    console.log(`Editing job with ID: ${id}`);
-    // Add your edit functionality here
+   
+      job(id)  
+    
   };
 
   const handleDelete = (id) => {
@@ -64,5 +65,7 @@ export default function TableJobPost({jobs}) {
         </TableBody>
       </Table>
     </TableContainer>
+
+     
   );
 }

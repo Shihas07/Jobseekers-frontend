@@ -9,12 +9,21 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import TableJobPost from "./TableJoBPost";
 import fetch from "../../services/Jobdetailsget";
+import EditModalJob from "./editTableModal";
 
 export default function JobManagementPage() {
   const [jobs, setJobs] = useState([]);
+  const [editJobDetails, setEditJobDetails] = useState(null);
+  console.log("editjobDetails",editJobDetails)
+
   const employer = useSelector((state) => state.employer.employerDetails);
-  console.log("sss", jobs);
+
+  // console.log("sss", jobs);
+
   const [Open, setOpen] = useState(false);
+  const [editModal, setEditModal] = useState(false);
+  const [editjob, setEditJob] = useState("");
+  // console.log("editjob:", editjob);
 
   const handleOpen = () => {
     setOpen(true);
@@ -22,6 +31,7 @@ export default function JobManagementPage() {
 
   const handleClose = () => {
     setOpen(false);
+    setEditModal(false);
   };
 
   const onSubmit = async (data) => {
@@ -60,7 +70,23 @@ export default function JobManagementPage() {
   };
   useEffect(() => {
     fetchJobDetails();
+    
   }, []);
+
+  const EditModal = (job) => {
+    setEditJob(job);
+
+    setEditModal(true);
+  };
+
+  useEffect(() => {
+    if (editjob && jobs.length > 0) {
+      const jobDetails = jobs.find(job => job._id === editjob);
+      setEditJobDetails(jobDetails);
+    }
+  }, [editjob, jobs]);
+
+      
 
   return (
     <div>
@@ -78,7 +104,9 @@ export default function JobManagementPage() {
         </Button>
         <ModalJob open={Open} handleClose={handleClose} onSubmit={onSubmit} />
       </Box>
-      <TableJobPost jobs={jobs} />
+      <TableJobPost jobs={jobs} job={EditModal} />
+
+      <EditModalJob open={editModal} handleClose={handleClose} job={editJobDetails} />
     </div>
   );
 }

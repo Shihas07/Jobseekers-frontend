@@ -22,6 +22,7 @@ export default function Sidebar({ title, navItems }) {
     }
   };
 
+     console.log(open)
   const drawer = (
     <Container 
       sx={{ 
