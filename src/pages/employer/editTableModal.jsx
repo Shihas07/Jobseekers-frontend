@@ -24,15 +24,13 @@ const schema = yup.object().shape({
   salaryRange: yup.string().required("Salary Range is required"),
   experience: yup.string().required("Experience is required"),
   qualification: yup.string().required("Qualification is required"),
-  applicationDeadline: yup
-    .date()
-    .required("Application Deadline is required")
-    .nullable(),
   jobDescription: yup.string().required("Job Description is required"),
 });
 
 export default function EditModalJob({ open, handleClose, onSubmit, jobDetails }) {
-  const [category, setCategory] = React.useState([]);
+  const [category, setCategory] = useState([]);
+
+  // console.log("cateforyfromedit",category)
 
   const {
     control,
@@ -50,13 +48,13 @@ export default function EditModalJob({ open, handleClose, onSubmit, jobDetails }
       salaryRange: "",
       experience: "",
       qualification: "",
-      applicationDeadline: "",
       jobDescription: "",
     },
   });
 
   const fetchCategory = async () => {
     const response = await categoryGet();
+           
     if (response) {
       setCategory(response.category);
     }
@@ -67,7 +65,6 @@ export default function EditModalJob({ open, handleClose, onSubmit, jobDetails }
   }, []);
 
   useEffect(() => {
-    // When the modal opens for editing, reset the form with the job details
     if (jobDetails) {
       reset({
         companyName: jobDetails.companyName || "",
@@ -78,7 +75,6 @@ export default function EditModalJob({ open, handleClose, onSubmit, jobDetails }
         salaryRange: jobDetails.salaryRange || "",
         experience: jobDetails.experience || "",
         qualification: jobDetails.qualification || "",
-        applicationDeadline: jobDetails.applicationDeadline || "",
         jobDescription: jobDetails.jobDescription || "",
       });
     } else {
@@ -87,8 +83,14 @@ export default function EditModalJob({ open, handleClose, onSubmit, jobDetails }
   }, [jobDetails, reset]);
 
   const handleFormSubmit = (data) => {
-    onSubmit(data); // Pass the form data to the parent component (create/update job)
-    reset();        // Reset the form after submission
+    const id=jobDetails._id
+
+    const newdata={
+      ...data,id
+    }
+      
+    onSubmit(newdata ); // Pass the form data to the parent component (create/update job)
+    reset();       // Reset the form after submission
     handleClose();  // Close the modal
   };
 
@@ -209,9 +211,88 @@ export default function EditModalJob({ open, handleClose, onSubmit, jobDetails }
               )}
             </Grid>
 
-            {/* Additional fields remain unchanged */}
-            {/* ... */}
-            
+            <Grid item xs={12}>
+              <Controller
+                name="jobLocation"
+                control={control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    fullWidth
+                    label="Job Location"
+                    error={!!errors.jobLocation}
+                    helperText={errors.jobLocation?.message}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <Controller
+                name="salaryRange"
+                control={control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    fullWidth
+                    label="Salary Range"
+                    error={!!errors.salaryRange}
+                    helperText={errors.salaryRange?.message}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <Controller
+                name="experience"
+                control={control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    fullWidth
+                    label="Experience"
+                    error={!!errors.experience}
+                    helperText={errors.experience?.message}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <Controller
+                name="qualification"
+                control={control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    fullWidth
+                    label="Qualification"
+                    error={!!errors.qualification}
+                    helperText={errors.qualification?.message}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <Controller
+                name="jobDescription"
+                control={control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    fullWidth
+                    label="Job Description"
+                    error={!!errors.jobDescription}
+                    multiline
+                    rows={4}
+                    helperText={errors.jobDescription?.message}
+                  />
+                )}
+              />
+            </Grid>
+
             <Grid item xs={12}>
               <Button
                 type="submit"

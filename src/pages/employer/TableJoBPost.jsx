@@ -21,15 +21,18 @@ const jobData = [
   // Add more job data here
 ];
 
-export default function TableJobPost({jobs,job}) {
+export default function TableJobPost({jobs,job,handledelete}) {
   const handleEdit = (id) => {
    
       job(id)  
     
   };
 
-  const handleDelete = (id) => {
-    console.log(`Deleting job with ID: ${id}`);
+  const handleDelete= (id) => {
+
+    handledelete(id)
+
+    // console.log(`Deleting job with ID: ${id}`);
     // Add your delete functionality here
   };
 
@@ -56,7 +59,7 @@ export default function TableJobPost({jobs,job}) {
                 <IconButton onClick={() => handleEdit(job._id)} color="primary">
                   <EditIcon />
                 </IconButton>
-                <IconButton onClick={() => handleDelete(job.id)} color="secondary">
+                <IconButton onClick={() => handleDelete(job._id)} color="secondary">
                   <DeleteIcon />
                 </IconButton>
               </TableCell>

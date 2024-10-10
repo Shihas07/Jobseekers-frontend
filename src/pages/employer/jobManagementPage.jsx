@@ -10,11 +10,13 @@ import "react-toastify/dist/ReactToastify.css";
 import TableJobPost from "./TableJoBPost";
 import fetch from "../../services/Jobdetailsget";
 import EditModalJob from "./editTableModal";
+import editJobPost from "../../services/employer/editJobPost";
+import postdelete from "../../services/employer/deletePost";
 
 export default function JobManagementPage() {
   const [jobs, setJobs] = useState([]);
   const [editJobDetails, setEditJobDetails] = useState(null);
-  console.log("editjobDetails",editJobDetails)
+  // console.log("editjobDetails",editJobDetails)
 
   const employer = useSelector((state) => state.employer.employerDetails);
 
@@ -68,6 +70,30 @@ export default function JobManagementPage() {
       setJobs(response.data);
     }
   };
+
+
+  const handledelete = async (id) => {
+    try {
+        console.log(id);
+
+        // Call the delete function
+        const response = await postdelete(id);
+
+        console.log("responseDelete", response);
+
+        if (response.message === "Job deleted successfully") {
+            toast("Delete successful");
+
+           
+            fetchJobDetails();
+        }
+    } catch (error) {
+        console.error("Error deleting job:", error);
+        toast("Failed to delete job");
+    }
+};
+
+
   useEffect(() => {
     fetchJobDetails();
     
@@ -85,6 +111,23 @@ export default function JobManagementPage() {
       setEditJobDetails(jobDetails);
     }
   }, [editjob, jobs]);
+
+
+  const editModalSubmit=async(data)=>{
+     
+      // console.log("jobdetailsedit",data) 
+
+      const response=await editJobPost(data)
+      // console.log("reponseeee",response)
+
+      if (response.message === "Job updated successfully") {
+        toast("update sucess");
+        fetchJobDetails();
+      } 
+  }
+
+
+ 
 
       
 
@@ -104,9 +147,9 @@ export default function JobManagementPage() {
         </Button>
         <ModalJob open={Open} handleClose={handleClose} onSubmit={onSubmit} />
       </Box>
-      <TableJobPost jobs={jobs} job={EditModal} />
+      <TableJobPost jobs={jobs} job={EditModal} handledelete={handledelete}  />
 
-      <EditModalJob open={editModal} handleClose={handleClose} job={editJobDetails} />
+      <EditModalJob open={editModal} onSubmit={editModalSubmit}  handleClose={handleClose} jobDetails={editJobDetails} />
     </div>
   );
 }
