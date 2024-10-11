@@ -67,9 +67,10 @@ export default function JobListingCard({job}) {
             <Typography variant="body2">{job.jobLocation}</Typography>
           </JobInfoItem>
         </Box>
-        <Button variant="contained" color="primary" size="small">
+        <Box sx={{display:"flex",justifyContent:"end"}}> <Button  variant="contained" color="primary" size="small">
             job details
-        </Button>
+        </Button></Box>
+       
       </CardContent>
     </StyledCard>
   )
