@@ -3,11 +3,13 @@ import JobListingCard from "../../components/Common/jobCard";
 import jobGet from "../../services/user/ftchJob";
 import FilterPage from "./filter";
 import getJobTitle from "../../services/user/jobTitleFilter";
+import getjobLocation from "../../services/user/searchJobLocation";
 
 export default function JobPage() {
   const [jobs, setJobs] = useState([]); // To hold all jobs
   const [searchJobTitle, setSearchJobTitle] = useState(""); // To hold the current search title
   const [filteredJobs, setFilteredJobs] = useState([]); 
+  const [searchLocation,setSearchLocation]=useState("")
 
  
   const fetchJob = async () => {
@@ -42,7 +44,19 @@ export default function JobPage() {
     }, 600);
     
     return () => clearTimeout(debounceSearch); // Cleanup the timeout
-  }, [searchJobTitle, jobs]); // Add jobs dependency to reset on jobs update
+  }, [searchJobTitle, jobs]); 
+  // Add jobs dependency to reset on jobs update
+
+   
+  const LocationSearch=async (title)=>{
+      
+     const response=  await getjobLocation(title)
+
+     
+
+       
+  }
+     
 
   return (
     <div style={{ display: "flex", height: "100vh" }} className="gap-8">
