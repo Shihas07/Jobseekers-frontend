@@ -8,7 +8,7 @@ function valuetext(value) {
   return `${value}°C`;
 }
 
-export default function FilterPage({onChange}) {
+export default function FilterPage({onChange,location}) {
   const [category,setCategory]=useState([])
   console.log("category",category)
 
@@ -54,7 +54,7 @@ export default function FilterPage({onChange}) {
         </Box>
         <Box marginRight={"30px"}>
           {" "}
-          <CommonInput background={"white"} height={"100%"} />
+          <CommonInput onChange={(e)=>location(e.target.value)} background={"white"} height={"100%"} />
         </Box>
         <Box marginTop={"10px"}>
           {" "}

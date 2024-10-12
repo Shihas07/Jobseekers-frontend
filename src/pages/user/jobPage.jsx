@@ -10,6 +10,7 @@ export default function JobPage() {
   const [searchJobTitle, setSearchJobTitle] = useState(""); // To hold the current search title
   const [filteredJobs, setFilteredJobs] = useState([]); 
   const [searchLocation,setSearchLocation]=useState("")
+  console.log("serchlocation",searchLocation)
 
  
   const fetchJob = async () => {
@@ -48,20 +49,43 @@ export default function JobPage() {
   // Add jobs dependency to reset on jobs update
 
    
-  const LocationSearch=async (title)=>{
-      
-     const response=  await getjobLocation(title)
-
+  const locationSearch = async (location) => {
+    if (!location) {
+      setFilteredJobs(jobs); 
+      return;
+    }
+  
+    const response = await getjobLocation(location);
      
+     console.log("responseeeeeeeee",response)
+    if (response) {
+      setFilteredJobs(response); // Set the filtered jobs based on location search
+    }
+    else {
+      setFilteredJobs(jobs); // If no results found, reset to all jobs
+    }
+  };
+
+  // Debounce location search
+  useEffect(() => {
+    const debounceLocationSearch = setTimeout(() => {
+     
+        locationSearch(searchLocation); // Trigger location search
+      
+    }, 600);
+    
+    return () => clearTimeout(debounceLocationSearch); // Cleanup the timeout
+  }, [searchLocation, jobs]);
 
        
-  }
+
+     
      
 
   return (
     <div style={{ display: "flex", height: "100vh" }} className="gap-8">
       <div className="w-1/4 sticky top-0">
-        <FilterPage onChange={setSearchJobTitle} /> {/* Ensure onChange updates searchJobTitle */}
+        <FilterPage onChange={setSearchJobTitle} location={setSearchLocation}  /> {/* Ensure onChange updates searchJobTitle */}
       </div>
       <div className="w-2/3 mt-10 overflow-y-auto">
         {filteredJobs.length > 0 ? (
