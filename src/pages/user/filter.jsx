@@ -8,7 +8,7 @@ function valuetext(value) {
   return `${value}°C`;
 }
 
-export default function FilterPage({onChange,location}) {
+export default function FilterPage({onChange,location,categoryCheck}) {
   const [category,setCategory]=useState([])
   console.log("category",category)
 
@@ -24,6 +24,9 @@ export default function FilterPage({onChange,location}) {
    useEffect(()=>{
        fetchCategory()
    },[])
+
+     
+     
   return (
     <Box
       sx={{
@@ -71,7 +74,8 @@ export default function FilterPage({onChange,location}) {
                   <Checkbox
                     // checked={selectedCategories.includes(data.name)} // Adjust according to your data
                     // onChange={handleCheckboxChange}
-                    // value={data.name} // Assuming category has a name property
+                    value={data.categoryName} // Assuming category has a name property
+                        onChange={(e)=>categoryCheck(e.target.value)}
                      sx={{ color: 'black', '&.Mui-checked': { color: 'white' } }} // Customize checkbox color
                   />
                 }
