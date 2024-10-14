@@ -77,6 +77,7 @@ export default function ModalJob({ open, handleClose, onSubmit }) {
   // };
 
   const handleFormSubmit = (data) => {
+    console.log("jobaddData",data)
     onSubmit(data);  
     reset();         
     handleClose();   
@@ -305,6 +306,40 @@ export default function ModalJob({ open, handleClose, onSubmit }) {
                     rows={4}
                     error={!!errors.jobDescription}
                     helperText={errors.jobDescription?.message}
+                  />
+                )}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Controller
+                name="keyResponsibilties"
+                control={control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    fullWidth
+                    label="key Responsibilties"
+                    multiline
+                    rows={4}
+                    error={!!errors.jobDescription}
+                    // helperText={errors.jobDescription?.message}
+                  />
+                )}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Controller
+                name="profesionalskill"
+                control={control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    fullWidth
+                    label="profesional skill"
+                    multiline
+                    rows={4}
+                    error={!!errors.jobDescription}
+                    // helperText={errors.profesionalskill?.message}
                   />
                 )}
               />

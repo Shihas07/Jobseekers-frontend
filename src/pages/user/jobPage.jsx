@@ -128,25 +128,25 @@ export default function JobPage() {
       >
         <SortingDropdown onSort={handleSort} /> {/* Pass sorting handler */}
       </div>
-      <div style={{ display: "flex", height: "100vh" }} className="gap-8">
-        <div className="w-1/4 sticky top-0">
-          <FilterPage
-            onChange={setSearchJobTitle}
-            location={setSearchLocation}
-            categoryCheck={setCategoryFilter}
-          />
-        </div>
-        <div className="w-2/3 mt-10 overflow-y-auto">
-          {filteredJobs.length > 0 ? (
-            filteredJobs.map((job) => <JobListingCard key={job._id} job={job} />)
-          ) : (
-            // <p>No jobs found...</p>
-            <div className="flex justify-center items-center">
-            <img width="50%" height="50%" src={notFound} alt="Not Found" />
-          </div>
-          )}
-        </div>
+      <div style={{ display: "flex", height: "100vh" }} className="gap-8 lg:gap-8 sm:gap-3 flex-col sm:flex-row">
+  <div className="sticky top-0 w-full md:w-1/3 lg:w-1/4">
+    <FilterPage
+      onChange={setSearchJobTitle}
+      location={setSearchLocation}
+      categoryCheck={setCategoryFilter}
+    />
+  </div>
+  <div className="w-full sm:w-2/3 sm:h-4/5 mt-10 overflow-y-auto">
+    {filteredJobs.length > 0 ? (
+      filteredJobs.map((job) => <JobListingCard key={job._id} job={job} value={"job Details"} />)
+    ) : (
+      <div className="flex justify-center items-center">
+        <img width="50%" height="50%" src={notFound} alt="Not Found" />
       </div>
+    )}
+  </div>
+</div>
+
     </div>
   );
 }

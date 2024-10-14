@@ -30,7 +30,7 @@ export default function Home() {
           {/* Render a JobListingCard for each job */}
           {jobs.length > 0 ? (
             jobs.map((job) => (
-              <JobListingCard key={job._id} job={job} /> // Pass individual job as a prop to JobListingCard
+              <JobListingCard key={job._id} job={job}  value={"jobdetails"}/> // Pass individual job as a prop to JobListingCard
             ))
           ) : (
             <p>No jobs available right now</p>

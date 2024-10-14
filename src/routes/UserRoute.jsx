@@ -6,6 +6,7 @@ import Signup from "../pages/user/signup";
 import ProtectedRoute from "../components/protectedRoute";
 import UserLayout from "../layouts/userLayout";
 import JobPage from "../pages/user/jobPage";
+import JobDetails from "../pages/user/jobDetails";
 
 export default function UserRoute() {
   return (
@@ -21,6 +22,7 @@ export default function UserRoute() {
 
         {/* Job page */}
         <Route path="/jobs" element={<JobPage />} />
+        <Route path="/jobdetails/:id" element={<JobDetails/>}/>
       </Route>
     </Routes>
   );

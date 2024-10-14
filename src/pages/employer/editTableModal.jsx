@@ -292,6 +292,40 @@ export default function EditModalJob({ open, handleClose, onSubmit, jobDetails }
                 )}
               />
             </Grid>
+            <Grid item xs={12}>
+              <Controller
+                name="key Responsibilties"
+                control={control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    fullWidth
+                    label="key Responsibilties"
+                    multiline
+                    rows={4}
+                    error={!!errors.jobDescription}
+                    // helperText={errors.jobDescription?.message}
+                  />
+                )}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Controller
+                name="profesiona skill"
+                control={control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    fullWidth
+                    label="profesional skill"
+                    multiline
+                    rows={4}
+                    error={!!errors.jobDescription}
+                    // helperText={errors.profesionalskill?.message}
+                  />
+                )}
+              />
+            </Grid>
 
             <Grid item xs={12}>
               <Button
