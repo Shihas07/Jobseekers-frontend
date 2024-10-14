@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import JobDetailsGetPage from "../../services/user/jobDetailseGet";
 import JobListingCard from "../../components/Common/jobCard";
+import SinglePage from "./singlePage";
 
 export default function JobDetails() {
-  const [jobDetail, setJobDetail] = useState(null); // Use a single job object
+  const [jobDetail, setJobDetail] = useState(""); // Use a single job object
+  console.log("jobDetails",jobDetail)
+
   const { id } = useParams();
 
   const jobGetFunc = async () => {
@@ -32,7 +35,9 @@ export default function JobDetails() {
         <div>Loading job details...</div> // Show loading message
       )}
         
-      <div>job details page</div>
+      <div>
+        <SinglePage data={jobDetail}/>
+      </div>
     </div>
   );
 }
