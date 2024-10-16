@@ -13,12 +13,12 @@ export default function UserRoute() {
     <Routes>
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<Signup />} />
-
+      <Route path="/" element={<Home />} />
       {/* Layout for protected routes */}
       <Route element={<UserLayout />}>
         {/* Wrap Home in ProtectedRoute */}
         {/* <Route path="/" element={<ProtectedRoute element={<Home />} />} /> */}
-        <Route path="/" element={<Home />} />
+       
 
         {/* Job page */}
         <Route path="/jobs" element={<JobPage />} />
