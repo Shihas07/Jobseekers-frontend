@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   TextField,
@@ -13,6 +13,7 @@ import {
 import SearchIcon from '@mui/icons-material/Search';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import WorkIcon from '@mui/icons-material/Work';
+import CategoryFetch from '../../../services/user/fetchCategory';
 
 const SearchBar = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -68,10 +69,12 @@ const SearchButton = styled(Button)(({ theme }) => ({
 
    
 const CombinedJobSearchBar = ({onChange}) => {
+  const [fetch,setFetch] =useState([])
   const [title,setTitile] =useState("")
   const [location, setLocation] = useState('');
   const [category, setCategory] = useState('');
 
+    console.log("fetchcartemf",fetch)
   const handleLocationChange = (event) => {
     setLocation(event.target.value);
   };
@@ -88,6 +91,17 @@ const CombinedJobSearchBar = ({onChange}) => {
     console.log('Form submitted');
   };
 
+   const getCategory=async()=>{
+      const response=await CategoryFetch()
+        
+        if(response){
+          setFetch(response.category)
+        }
+
+   }
+   useEffect(()=>{
+     getCategory()
+   },[])
   return (
     <Container maxWidth="md">
       <Box sx={{ my: 4 }}>
@@ -148,12 +162,15 @@ const CombinedJobSearchBar = ({onChange}) => {
               renderValue={(selected) => selected ? selected : "Select Category"}
               startAdornment={<WorkIcon sx={{ mr: 1 }} />}
             >
-              <MenuItem value="">
+            <MenuItem value="">
                 <em>Select Category</em>
               </MenuItem>
-              <MenuItem value="technology">Technology</MenuItem>
-              <MenuItem value="finance">Finance</MenuItem>
-              <MenuItem value="healthcare">Healthcare</MenuItem>
+              {/* Map over fetch to render each category */}
+              {fetch.map((cat) => (
+                <MenuItem key={cat._id} value={cat.categoryName}>
+                  {cat.categoryName}
+                </MenuItem>
+              ))}
             </SearchSelect>
             <SearchButton
               type="submit"
