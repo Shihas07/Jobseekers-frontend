@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from './nav';
+import photo from "../../assets/photo-group-people-working-out-business-plan-office_812426-66937.jpg";
 
 export default function Banner() {
   return (
@@ -14,7 +15,7 @@ export default function Banner() {
 
   {/* Banner Image */}
   <img
-    src="src/assets/jon-search-employment-recuritment-resume.jpg"
+    src={photo}
     alt="Banner"
     className="w-full h-full object-cover"
   />

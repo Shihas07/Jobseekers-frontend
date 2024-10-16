@@ -63,7 +63,11 @@ const Navbar = () => {
               <MenuIcon className="text-white" />
             </IconButton>
           </Box>
-          <Typography variant="h6" className="ml-2 text-white text-" sx={{fontFamily:"fantasy"}}>
+          <Typography
+            variant="h6"
+            className="ml-2 text-white bg-teal-500"
+            sx={{ fontFamily: "fantasy" }}
+          >
             jobseekers
           </Typography>
 
@@ -71,25 +75,26 @@ const Navbar = () => {
           <Box className="hidden md:flex space-x-8">
             <Link
               to="/"
-              className="text-black hover:text-white text-lg font-semibold"
+              className="text-teal-500 hover:text-white text-lg font-semibold"
+              // sx={{text:"text.primary"}}
             >
               Home
             </Link>
             <Link
               to="/jobs"
-              className="text-black hover:text-white text-lg font-semibold"
+              className="text-teal-500 hover:text-white text-lg font-semibold"
             >
               Jobs
             </Link>
             <Link
               to="/about"
-              className="text-black hover:text-white text-lg font-semibold"
+              className="text-teal-500 hover:text-white text-lg font-semibold"
             >
               About Us
             </Link>
             <Link
               to="/contact"
-              className="text-black hover:text-white text-lg font-semibold"
+              className="text-teal-500 hover:text-white text-lg font-semibold"
             >
               Contact Us
             </Link>
