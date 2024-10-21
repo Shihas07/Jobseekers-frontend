@@ -13,8 +13,14 @@ import { login, sendOtp, submitOtp } from "../../services/user";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from 'react-toastify'; 
 import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch } from 'react-redux'; 
+import { setUser } from '../../redux/userSlice';
+
+
 
 const LoginPage = () => {
+  const dispatch = useDispatch(); 
+
   const [isOtpLogin, setIsOtpLogin] = useState(false);
   const [isOtpSent, setIsOtpSent] = useState(false);
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
@@ -44,6 +50,7 @@ const LoginPage = () => {
         const response = await login(data);
         console.log(response);
         if (response.data.message === "Login successful") {
+          dispatch(setUser(response.data.user));
           navigate("/");
         } else {
           toast.error(response.data.message);

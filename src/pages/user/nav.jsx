@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   AppBar,
   Toolbar,
@@ -15,7 +15,20 @@ import { Link } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useNavigate } from "react-router-dom";
 
+import { useSelector } from "react-redux";
+import { Refresh } from "../../services/user";
+import { Logout } from "@mui/icons-material";
+import { useDispatch } from 'react-redux'; 
+import { clearUser } from '../../redux/userSlice';
+import Person2Icon from '@mui/icons-material/Person2';
+
 const Navbar = () => {
+ const  dispatch=useDispatch()
+
+  const userDetails = useSelector((state) => state.user.userDetails);
+ 
+    console.log("userDetails",userDetails)
+
   const navigate = useNavigate();
   const [isMenuOpen, setMenuOpen] = useState(false);
 
@@ -26,6 +39,29 @@ const Navbar = () => {
   const signup = () => {
     navigate("/signup");
   };
+
+  const login = () => {
+    navigate("/login");
+  };
+
+
+
+    const refresh=async()=>{
+        
+       await Refresh()
+    }
+  
+    useEffect(()=>{
+       refresh()   
+        
+    },[])
+
+   const Logout=()=>{
+      
+    dispatch(clearUser()); 
+   }
+       
+    
 
   const sidebarLinks = (
     <List>
@@ -101,17 +137,33 @@ const Navbar = () => {
           </Box>
 
           {/* Right - Login/Register */}
+
           <Box className="flex space-x-4">
-            <Button variant="text" className="text-gray-300 hover:text-white">
-              Login
-            </Button>
-            <Button
-              variant="contained"
-              onClick={signup}
-              className="bg-teal-500 hover:bg-teal-600 text-white"
-            >
-              Register
-            </Button>
+            {userDetails ? (
+              <>
+                <Typography variant="body1" color="white">
+                  {/* Welcome, {userDetails.name}  */}
+                  <Person2Icon sx={{ color: 'white', fontSize: 30 }} />
+                    
+                </Typography>
+                <Button variant="text" onClick={Logout}  className="text-gray-300 hover:text-white">
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button variant="text" onClick={login} className="text-gray-300 hover:text-white">
+                  Login
+                </Button>
+                <Button
+                  variant="contained"
+                  onClick={signup}
+                  className="bg-teal-500 hover:bg-teal-600 text-white"
+                >
+                  Register
+                </Button>
+              </>
+            )}
           </Box>
         </Toolbar>
       </AppBar>

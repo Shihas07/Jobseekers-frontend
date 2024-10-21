@@ -4,6 +4,7 @@
   import storage from 'redux-persist/lib/storage' 
 
    import employerReducer from "../redux/slice"
+   import userReducer from "../redux/userSlice"
 
    const persistConfig = {
     key: 'root',
@@ -11,6 +12,7 @@
   }
 
   const rootReducer=combineReducers({
+    user:userReducer,
     employer:employerReducer
   })
   const persistedReducer = persistReducer(persistConfig,rootReducer )
