@@ -14,9 +14,11 @@ export default function Banner({onChange}) {
         </div>
         
         {/* Search Bar */}
-        <div className="mt-16 z-20">
-          <SerchBar onChange={onChange} />
-        </div>
+        {location.pathname === "/" && (  // Only show on home page
+          <div className="mt-16 z-20">
+            <SerchBar onChange={onChange} />
+          </div>
+        )}
       </div>
 
       {/* Banner Image */}

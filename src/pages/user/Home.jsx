@@ -72,10 +72,10 @@ export default function Home() {
             ))
           ) : (
             <div
-              className="d-flex justify-content-center align-items-center"
-              style={{ height: "100vh" }}
+              className="d-flex justify-content-center align-items-center mx-auto lg-mx-80"
+              style={{ height: "100vh ",width:"100%"  }}
             >
-              <img className="center" src={not_found} alt="Not Found" />
+              <img className="center w-auto" src={not_found} alt="Not Found" />
             </div>
           )}
         </div>
