@@ -1,11 +1,24 @@
 import { Box, Container, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import WorkIcon from "@mui/icons-material/Work";
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import EmailIcon from '@mui/icons-material/Email';
+import useUserFind from "../../utilities/useUserFind";
 
 export default function ProfileHead() {
+  const [profile,setProfile]=useState([])
+  console.log("profile",profile)
+
+  const data=useUserFind()
+  console.log("dataeeeeee",data)
+
+  useEffect(() => {
+    if (data ) {
+      setProfile(data);  // Assuming the user data is the first object in the array
+    }
+  }, [data]);
+
   return (
     <Box
       elevation={4}
@@ -25,6 +38,7 @@ export default function ProfileHead() {
       }}
       boxShadow={10}
       // bgcolor="#78ded2"
+      bgcolor={"#95ddde"}
     >
       <Box
         width={"202px"}
@@ -44,9 +58,9 @@ export default function ProfileHead() {
           }}
         />
       </Box>
-      <Box width={"500px"} bgcolor={"white"} height={"200px"} boxShadow={3}>
-        <Typography variant="h5" fontFamily={"_apple-"}>
-          userName
+      <Box width={"500px"}  height={"200px"} boxShadow={3} bgcolor={"white"} borderRadius={"10px"}>
+        <Typography marginLeft={"10px"} variant="h4" fontFamily={"_apple-"}>
+        {profile?.name || "UserName"}
         </Typography>
 
         <Box sx={{display:"flex"}}>
@@ -57,7 +71,7 @@ export default function ProfileHead() {
             sx={{ marginTop: "30px", marginLeft: "30px"  }}width={"200px"}
           >
             <LocationOnIcon />
-            location
+            {profile?.location || "Location"}
           </Typography>
           <Typography
             variant="h6"
@@ -65,7 +79,7 @@ export default function ProfileHead() {
             sx={{ marginTop: "30px", marginLeft: "30px" }}
           >
             <WorkIcon />
-            fresher
+            {profile?.fresher || "Experience"}
           </Typography>
           </Box>
           <Box>
@@ -75,7 +89,7 @@ export default function ProfileHead() {
             sx={{ marginTop: "30px", marginLeft: "30px" }}
           >
             <LocalPhoneIcon />
-            phone
+            {profile?.phone || "Phone"}
           </Typography>
           <Typography
             variant="h6"
@@ -83,7 +97,7 @@ export default function ProfileHead() {
             sx={{ marginTop: "30px", marginLeft: "30px" }}
           >
             <EmailIcon />
-             Email
+            {profile?.email || "Email"}
           </Typography>
           </Box>
         </Box>
