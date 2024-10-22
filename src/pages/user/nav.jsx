@@ -61,7 +61,10 @@ const Navbar = () => {
     dispatch(clearUser()); 
    }
        
-    
+    const navi=()=>{
+        
+        navigate("/profile")
+    }
 
   const sidebarLinks = (
     <List>
@@ -144,7 +147,7 @@ const Navbar = () => {
               <>
                 <Typography variant="body1" color="white">
                   Welcome, {userDetails.name} 
-                  <Person2Icon sx={{ color: 'primary.main', fontSize: 30 }} />
+                  <Person2Icon onClick={navi} sx={{ color: 'primary.main', fontSize: 30 }} />
                     
                 </Typography>
                 <Button variant="text" onClick={Logout}  className="text-gray-300 hover:text-white">

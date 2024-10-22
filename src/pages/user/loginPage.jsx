@@ -40,6 +40,7 @@ const LoginPage = () => {
         } else {
           const response = await submitOtp(data);
           if (response.status === 200) {
+            dispatch(setUser(response.data.user));
             console.log("OTP Validation successful:", response);
             navigate("/"); 
           } else {
