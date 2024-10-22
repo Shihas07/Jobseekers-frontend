@@ -101,7 +101,8 @@ const Navbar = () => {
           </Box>
           <Typography
             variant="h6"
-            className="ml-2 text-white bg-teal-500"
+            // className="ml-2 text-white"
+            color="white"
             sx={{ fontFamily: "fantasy" }}
           >
             jobseekers
@@ -142,8 +143,8 @@ const Navbar = () => {
             {userDetails ? (
               <>
                 <Typography variant="body1" color="white">
-                  {/* Welcome, {userDetails.name}  */}
-                  <Person2Icon sx={{ color: 'white', fontSize: 30 }} />
+                  Welcome, {userDetails.name} 
+                  <Person2Icon sx={{ color: 'primary.main', fontSize: 30 }} />
                     
                 </Typography>
                 <Button variant="text" onClick={Logout}  className="text-gray-300 hover:text-white">
