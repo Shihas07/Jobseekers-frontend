@@ -4,6 +4,7 @@ import Banner from "./banner";
 import JobListingCard from "../../components/Common/jobCard";
 import jobGet from "../../services/user/ftchJob";
 import not_found from "../../assets/not_found.gif";
+import Footer from "../../components/user/Footer";
 
 export default function Home() {
   const [jobs, setJobs] = useState([]); // Holds all fetched jobs
@@ -80,6 +81,9 @@ export default function Home() {
           )}
         </div>
       </div>
+       <div>
+        <Footer/>
+       </div>
     </div>
   );
 }

@@ -1,36 +1,41 @@
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, Typography,IconButton } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import WorkIcon from "@mui/icons-material/Work";
-import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-import EmailIcon from '@mui/icons-material/Email';
+import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
+import EmailIcon from "@mui/icons-material/Email";
 import useUserFind from "../../utilities/useUserFind";
+import EditIcon from '@mui/icons-material/Edit';
 
 export default function ProfileHead() {
-  const [profile,setProfile]=useState([])
-  console.log("profile",profile)
+  const [profile, setProfile] = useState([]);
+  console.log("profile", profile);
 
-  const data=useUserFind()
-  console.log("dataeeeeee",data)
+  const data = useUserFind();
+  console.log("dataeeeeee", data);
 
   useEffect(() => {
-    if (data ) {
-      setProfile(data);  // Assuming the user data is the first object in the array
+    if (data) {
+      setProfile(data); // Assuming the user data is the first object in the array
     }
   }, [data]);
+
+  const handleEditClick=()=>{
+    console.log("hello")
+  }
 
   return (
     <Box
       elevation={4}
       width={{ xs: "100%", sm: "80%" }}
-      height={{ xs: "150px", sm: "220px" }}
+      height={{ xs: "100%", sm: "100%" }}
       sx={{
         marginTop: "10px",
-        marginLeft: { xs: "10px", sm: "100px" },
-        marginRight: { xs: "10px", sm: "30px" },
+        marginLeft: {  sm: "100px" },
+        marginRight: {  sm: "30px" },
         borderRadius: "40px",
         display: "flex",
-        flexDirection: "row",
+        flexDirection: { xs: "column", sm: "column", lg: "row" },
         alignItems: "center",
         gap: "20px",
 
@@ -44,7 +49,7 @@ export default function ProfileHead() {
         width={"202px"}
         bgcolor={"white"}
         height={"200px"}
-        sx={{ marginLeft: "100px", borderRadius: "50%" }}
+        sx={{ marginLeft: {lg:"100px",sm:"50px"}, borderRadius: "50%" }}
         boxShadow={10}
       >
         <img
@@ -58,51 +63,67 @@ export default function ProfileHead() {
           }}
         />
       </Box>
-      <Box width={"500px"}  height={"200px"} boxShadow={3} bgcolor={"white"} borderRadius={"10px"}>
-        <Typography marginLeft={"10px"} variant="h4" fontFamily={"_apple-"}>
-        {profile?.name || "UserName"}
-        </Typography>
 
-        <Box sx={{display:"flex"}}>
-        <Box sx={{ borderRight: "1px solid" }} width={"200px"}>
-          <Typography
-            variant="h6"
-            fontFamily={"_apple-"}
-            sx={{ marginTop: "30px", marginLeft: "30px"  }}width={"200px"}
-          >
-            <LocationOnIcon />
-            {profile?.location || "Location"}
-          </Typography>
-          <Typography
-            variant="h6"
-            fontFamily={"_apple-"}
-            sx={{ marginTop: "30px", marginLeft: "30px" }}
-          >
-            <WorkIcon />
-            {profile?.fresher || "Experience"}
-          </Typography>
-          </Box>
-          <Box>
-          <Typography
-            variant="h6"
-            fontFamily={"_apple-"}
-            sx={{ marginTop: "30px", marginLeft: "30px" }}
-          >
-            <LocalPhoneIcon />
-            {profile?.phone || "Phone"}
-          </Typography>
-          <Typography
-            variant="h6"
-            fontFamily={"_apple-"}
-            sx={{ marginTop: "30px", marginLeft: "30px" }}
-          >
-            <EmailIcon />
-            {profile?.email || "Email"}
-          </Typography>
-          </Box>
+      <Box
+        
+        height={"50%"}
+        boxShadow={3}
+        bgcolor={"white"}
+        borderRadius={"10px"}
+       sx={{width:{lg:"50%",sm:"50%"}}}
+      >
+        <Box sx={{display:"flex" ,justifyContent:"space-between"}}>
+        <Typography marginLeft={"10px"} variant="h4" fontFamily={"_apple-"}>
+          {profile?.name || "UserName"}
+        </Typography>
+        <IconButton onClick={handleEditClick} sx={{ marginRight: "50px", marginTop: "5px" }}>
+            <EditIcon />
+          </IconButton>
         </Box>
 
-        
+        <Box sx={{ display: "flex" }}>
+          <Box
+            sx={{ borderRight: "1px solid", width:{sm:"50%",lg:"50%"}}}
+            // bgcolor={"yellow"}
+           
+          >
+            <Typography
+              variant="h6"
+              fontFamily={"_apple-"}
+              sx={{ marginTop: "30px", marginLeft: "30px" }}
+              
+            >
+              <LocationOnIcon />
+              {profile?.location || "Location"}
+            </Typography>
+            <Typography
+              variant="h6"
+              fontFamily={"_apple-"}
+              sx={{ marginTop: "30px", marginLeft: "30px" }}
+            >
+              <WorkIcon />
+              {profile?.fresher || "Experience"}
+            </Typography>
+          </Box>
+          <Box bgcolor={"white"} width={"50%"}>
+            <Typography
+              variant="h6"
+              fontFamily={"_apple-"}
+              sx={{ marginTop: "30px", marginLeft: "30px" }}
+            >
+              <LocalPhoneIcon />
+              {profile?.phone || "Phone"}
+            </Typography>
+            <Typography
+              variant="h6"
+              fontFamily={"_apple-"}
+              sx={{ marginTop: "30px", marginLeft: "30px" }}
+            >
+              <EmailIcon />
+              {profile?.email || "Email"}
+            </Typography>
+          </Box>
+        </Box>
       </Box>
     </Box>
   );
