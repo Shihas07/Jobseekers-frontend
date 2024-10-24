@@ -9,8 +9,9 @@ export default function Resume() {
         display: "flex", // Flex container
         justifyContent: "center", // Center horizontally
         alignItems: "center", // Center vertically (if needed)
-        bgcolor: "yellowgreen" // Background color
+        bgcolor: "#ebe8e1" // Background color
       }}
+      boxShadow={"20px"}
     >
       <Box
         sx={{

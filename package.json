@@ -21,6 +21,7 @@
     "@reduxjs/toolkit": "^2.2.7",
     "antd": "^5.20.4",
     "axios": "^1.7.7",
+    "formik": "^2.4.6",
     "js-cookie": "^3.0.5",
     "lottie-react": "^2.4.0",
     "material-react-toastify": "^10.0.5",

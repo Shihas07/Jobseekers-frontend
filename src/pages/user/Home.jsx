@@ -5,6 +5,7 @@ import JobListingCard from "../../components/Common/jobCard";
 import jobGet from "../../services/user/ftchJob";
 import not_found from "../../assets/not_found.gif";
 import Footer from "../../components/user/Footer";
+import CompanyShowcase from "../../components/user/homeStatic";
 
 export default function Home() {
   const [jobs, setJobs] = useState([]); // Holds all fetched jobs
@@ -60,7 +61,7 @@ export default function Home() {
   const filteredJobs = filterJobs(); // Get the filtered job list
 
   return (
-    <div>
+    <div style={{backgroundColor:"rgb(248,249,250)"}} className="">
       <div>
         <Banner onChange={setSearchJob} /> {/* Pass setSearchJob to Banner */}
       </div>
@@ -76,10 +77,13 @@ export default function Home() {
               className="d-flex justify-content-center align-items-center mx-auto lg-mx-80"
               style={{ height: "100vh ",width:"100%"  }}
             >
-              <img className="center w-auto" src={not_found} alt="Not Found" />
+              <img   className="center mx-80 w-1/3" src={not_found} alt="Not Found" />
             </div>
           )}
         </div>
+      </div>
+      <div className="mb-9">
+        <CompanyShowcase/>
       </div>
        <div>
         <Footer/>

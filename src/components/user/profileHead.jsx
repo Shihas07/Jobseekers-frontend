@@ -7,12 +7,12 @@ import EmailIcon from "@mui/icons-material/Email";
 import useUserFind from "../../utilities/useUserFind";
 import EditIcon from '@mui/icons-material/Edit';
 
-export default function ProfileHead() {
+export default function ProfileHead({open}) {
   const [profile, setProfile] = useState([]);
-  console.log("profile", profile);
+  // console.log("profile", profile);
 
   const data = useUserFind();
-  console.log("dataeeeeee", data);
+  // console.log("dataeeeeee", data);
 
   useEffect(() => {
     if (data) {
@@ -21,7 +21,7 @@ export default function ProfileHead() {
   }, [data]);
 
   const handleEditClick=()=>{
-    console.log("hello")
+       open()
   }
 
   return (
@@ -76,8 +76,8 @@ export default function ProfileHead() {
         <Typography marginLeft={"10px"} variant="h4" fontFamily={"_apple-"}>
           {profile?.name || "UserName"}
         </Typography>
-        <IconButton onClick={handleEditClick} sx={{ marginRight: "50px", marginTop: "5px" }}>
-            <EditIcon />
+        <IconButton   sx={{ marginRight: "50px", marginTop: "5px" }}>
+            <EditIcon  onClick={handleEditClick} />
           </IconButton>
         </Box>
 
