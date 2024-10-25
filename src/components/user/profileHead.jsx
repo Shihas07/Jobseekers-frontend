@@ -9,7 +9,7 @@ import EditIcon from '@mui/icons-material/Edit';
 
 export default function ProfileHead({open}) {
   const [profile, setProfile] = useState([]);
-  // console.log("profile", profile);
+  console.log("profile", profile);
 
   const data = useUserFind();
   // console.log("dataeeeeee", data);
@@ -102,7 +102,7 @@ export default function ProfileHead({open}) {
               sx={{ marginTop: "30px", marginLeft: "30px" }}
             >
               <WorkIcon />
-              {profile?.fresher || "Experience"}
+              {profile?.experience || "Experience"}
             </Typography>
           </Box>
           <Box bgcolor={"white"} width={"50%"}>

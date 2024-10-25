@@ -1,9 +1,9 @@
 import React from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button,TextField } from '@mui/material';
 
-export default function CommonModal({ isOpen, title, children, onClose, onSubmit }) {
+export default function CommonModal({ isOpen, title, children, onClose, onSubmit,onFieldChange }) {
 
-    
+  
     
   return (
     <Dialog open={isOpen} onClose={onClose} maxWidth="sm" fullWidth>
@@ -16,8 +16,8 @@ export default function CommonModal({ isOpen, title, children, onClose, onSubmit
             {field.type === 'file' ? (
               <input
                 type="file"
-                // onChange={(e) => onFieldChange(field.name, e.target.files[0])}
-                accept=".pdf, .doc, .docx" // file type restrictions if needed
+                onChange={(e) => onFieldChange(field.name, e.target.files[0])}
+                accept=".pdf, .doc, .docx" 
               />
             ) : (
               <TextField
@@ -25,7 +25,7 @@ export default function CommonModal({ isOpen, title, children, onClose, onSubmit
                 fullWidth
                 margin="normal"
                 value={field.value}
-                // onChange={(e) => onFieldChange(field.name, e.target.value)}
+                onChange={(e) => onFieldChange(field.name, e.target.value)}
               />
             )}
                </div>
