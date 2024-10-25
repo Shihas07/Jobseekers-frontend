@@ -30,7 +30,7 @@ export default function JobDetails() {
   return (
     <div>
       {jobDetail ? ( // Check if jobDetail is available
-        <JobListingCard key={jobDetail._id} job={jobDetail} value={"apply"} />
+        <JobListingCard key={jobDetail._id} job={jobDetail} value={"apply"}  />
       ) : (
         <div>Loading job details...</div> // Show loading message
       )}

@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{useState} from "react";
 import {
   Card,
   CardContent,
@@ -15,6 +15,9 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { useNavigate } from "react-router-dom";
 import JobDetails from "../../pages/user/jobDetails";
+import { useSelector } from "react-redux";
+import Snackbar from '@mui/material/Snackbar';
+
 
 const StyledCard = styled(Card)(({ theme }) => ({
   maxWidth: 800,
@@ -39,11 +42,38 @@ const JobInfoItem = styled(Box)(({ theme }) => ({
   },
 }));
 
-export default function JobListingCard({ job,value }) {
+export default function JobListingCard({ job, value }) {
+  const [open, setOpen] = useState(false);
+  const [snackMessage, setSnackMessage] = useState("");
+  const vertical = "top"; // Change if needed
+  const horizontal = "center";
+
   const navigate = useNavigate();
+  const user = useSelector((state) => state.user.userDetails);
+  console.log("user", user);
+
+  const handleClickSnack = (message) => {
+    setSnackMessage(message);
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleClick = () => {
     navigate(`/JobDetails/${job._id}`);
+
+    console.log("clicked");
+  };
+
+  const handleClickApply = (id) => {
+    console.log("applyClicked", id);
+
+    if (user === null) {
+      handleClickSnack("Please log in");
+    } else {
+      // Proceed with application logic
+    }
   };
 
   return (
@@ -81,10 +111,30 @@ export default function JobListingCard({ job,value }) {
             variant="contained"
             color="primary"
             size="small"
-            onClick={()=>handleClick(job._id)}
+            onClick={
+              value === "apply" ? () => handleClickApply(job._id) : handleClick
+            }
           >
-            {value.length>0?value:"job details"} 
+            {value.length > 0 ? value : "job details"}
           </Button>
+
+          <Snackbar
+        anchorOrigin={{ vertical, horizontal }}
+        open={open}
+        
+        autoHideDuration={3000}
+        onClose={handleClose}
+        message={snackMessage}
+        ContentProps={{
+          style: { backgroundColor: 'green', color: 'white' }, // Set your desired background and text color
+        }}
+        action={
+          <Button color="inherit" onClick={handleClose}>
+            Close
+          </Button>
+        }
+      />
+        
         </Box>
       </CardContent>
     </StyledCard>
