@@ -42,7 +42,7 @@ const JobInfoItem = styled(Box)(({ theme }) => ({
   },
 }));
 
-export default function JobListingCard({ job, value }) {
+export default function JobListingCard({ job, value,apply }) {
   const [open, setOpen] = useState(false);
   const [snackMessage, setSnackMessage] = useState("");
   const vertical = "top"; // Change if needed
@@ -66,15 +66,16 @@ export default function JobListingCard({ job, value }) {
     console.log("clicked");
   };
 
-  const handleClickApply = (id) => {
-    console.log("applyClicked", id);
+  // const handleClickApply = (id) => {
+  //   console.log("applyClicked", id);
 
-    if (user === null) {
-      handleClickSnack("Please log in");
-    } else {
-      // Proceed with application logic
-    }
-  };
+  //   if (user === null) {
+  //     handleClickSnack("Please log in");
+  //   } else {
+  //     // Proceed with application logic
+  //   }
+  // };
+  
 
   return (
     <StyledCard>
@@ -112,7 +113,7 @@ export default function JobListingCard({ job, value }) {
             color="primary"
             size="small"
             onClick={
-              value === "apply" ? () => handleClickApply(job._id) : handleClick
+              value === "apply" ? () => apply(job._id) : handleClick
             }
           >
             {value.length > 0 ? value : "job details"}

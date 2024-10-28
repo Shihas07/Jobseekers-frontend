@@ -22,6 +22,8 @@ export default function ProfileHead({open}) {
 
   const handleEditClick=()=>{
        open()
+
+        // console.log("icon button cicked")
   }
 
   return (

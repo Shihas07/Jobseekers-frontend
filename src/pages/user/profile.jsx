@@ -54,6 +54,7 @@ export default function Profile() {
   const handleCloseModal = () => {
     setOpen(false);
   };
+ 
   const fields = [
     { name: "name", type: "text", value: formData.name },
     { name: "email", type: "text", value: formData.email },
@@ -66,7 +67,7 @@ export default function Profile() {
   return (
     <div>
       <div>
-        <ProfileHead open={handleCLickEdit} />
+        <ProfileHead open={handleCLickEdit}  />
       </div>
       <div className="flex mx-20 mt-10 mb-6 ">
         <NotificationBar />

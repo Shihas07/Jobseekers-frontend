@@ -1,23 +1,36 @@
-import React from 'react';
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button,TextField } from '@mui/material';
+import React, { useState } from "react";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+  TextField,
+} from "@mui/material";
 
-export default function CommonModal({ isOpen, title, children, onClose, onSubmit,onFieldChange }) {
+export default function CommonModal({
+  isOpen,
+  title,
+  children,
+  onClose,
+  onSubmit,
+  onFieldChange,
+}) {
+  console.log("children", children);
+  // const [fileInput, setFileInput] = useState({});
 
-  
-    
   return (
     <Dialog open={isOpen} onClose={onClose} maxWidth="sm" fullWidth>
       <DialogTitle>{title}</DialogTitle>
-    
-      <DialogContent>
 
-      {children.map((field, index) => (
-          <div key={index} style={{ marginBottom: '1rem' }}>
-            {field.type === 'file' ? (
+      <DialogContent>
+        {children.map((field, index) => (
+          <div key={index} style={{ marginBottom: "1rem" }}>
+            {field.type === "file" ? (
               <input
                 type="file"
                 onChange={(e) => onFieldChange(field.name, e.target.files[0])}
-                accept=".pdf, .doc, .docx" 
+                accept=".pdf, .doc, .docx"
               />
             ) : (
               <TextField
@@ -28,11 +41,16 @@ export default function CommonModal({ isOpen, title, children, onClose, onSubmit
                 onChange={(e) => onFieldChange(field.name, e.target.value)}
               />
             )}
-               </div>
+          </div>
         ))}
 
+        {/* <Button>
+          {children[6].value}
+          {console.log("ww", children.name)}
+        </Button> */}
         {/* <TextField type={"file"} inputProps={{accept:"application/pdf"}}/> */}
       </DialogContent>
+
       <DialogActions>
         <Button onClick={onClose} color="secondary">
           Cancel
