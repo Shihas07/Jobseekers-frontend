@@ -8,6 +8,7 @@ import useUserFind from "../../utilities/useUserFind";
 import { useSelector } from "react-redux";
 import apply from "../../services/user/addApplyjob";
 import Snackbar from '@mui/material/Snackbar';
+import getAppliedJOb from "../../services/user/appliedJob";
 
 
 
@@ -18,6 +19,7 @@ export default function JobDetails() {
   const user = useSelector((state) => state.user.userDetails);
   const [jobDetail, setJobDetail] = useState("");
   const [Open, setOpen] = useState(false);
+  const [appliedJobIds, setAppliedJobIds] = useState([]); 
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
@@ -136,13 +138,36 @@ export default function JobDetails() {
     setSnackbarOpen(false);
   };
 
+    console.log("user",user)
+    const appliedJob= async () => {
+      if (user && user.id) {
+        try {
+          const response = await getAppliedJOb(user.id);
+          if (response && Array.isArray(response.jobIds)) {
+            setAppliedJobIds(response.jobIds);
+          }
+        } catch (error) {
+          console.error("Error fetching applied jobs:", error);
+        }
+      }
+    };
+
+   useEffect(()=>{
+     
+    appliedJob()
+
+   },[user,snackbarOpen])
+
+
+   const isJobApplied = appliedJobIds.includes(id);
+
   return (
     <div>
       {jobDetail ? ( // Check if jobDetail is available
         <JobListingCard
           key={jobDetail._id}
           job={jobDetail}
-          value={"apply"}
+          value={isJobApplied ? "view details" : "apply"}
           apply={handleClickApply}
         />
       ) : (
