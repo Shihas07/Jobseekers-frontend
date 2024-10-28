@@ -44,10 +44,11 @@ export default function CommonModal({
           </div>
         ))}
 
-        <Button>
+        {/* <Button>
+
           {children[7].value}
           {console.log("ww", children.name)}
-        </Button>
+        </Button> */}
         {/* <TextField type={"file"} inputProps={{accept:"application/pdf"}}/> */}
       </DialogContent>
 

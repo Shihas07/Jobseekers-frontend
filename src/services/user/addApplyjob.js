@@ -7,6 +7,8 @@ import axiosInstance from "../../utilities/axiosInstance";
 
   console.log("axiosprofile",profile,id)
 
+  
+
    const response=  await axiosInstance.post(`/applyJob/${id}`,{profile})
     return response.data;
    console.log("res",response)

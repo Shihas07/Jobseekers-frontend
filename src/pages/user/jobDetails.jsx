@@ -160,6 +160,7 @@ export default function JobDetails() {
 
 
    const isJobApplied = appliedJobIds.includes(id);
+  //  console.log(isJobApplied)
 
   return (
     <div>
