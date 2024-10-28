@@ -6,24 +6,39 @@ import SinglePage from "./singlePage";
 import CommonModal from "../../components/Common/Modal";
 import useUserFind from "../../utilities/useUserFind";
 import { useSelector } from "react-redux";
+import apply from "../../services/user/addApplyjob";
+import Snackbar from '@mui/material/Snackbar';
+
+
+
 
 export default function JobDetails() {
+  // const {id}=useParams()
+
   const user = useSelector((state) => state.user.userDetails);
   const [jobDetail, setJobDetail] = useState("");
-   const [Open,setOpen]=useState(false)
+  const [Open, setOpen] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState("success");
 
-   const [profile, setFormData] = useState({
+  const [profile, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     skills: "",
     location: "",
+      coverLetter:"",
     experience: "",
-    resumePath: null, // for file input
+    resumePath: null,
+  
+     // for file input
+
   });
-  console.log("jobDetails",profile)
+  // console.log("jobDetails",profile)
 
   const { id } = useParams();
+  console.log("jobid", id);
 
   const jobGetFunc = async () => {
     try {
@@ -45,23 +60,18 @@ export default function JobDetails() {
   const handleClick = () => {
     navigate(`/JobDetails/${job._id}`);
 
-    console.log("clicked");
+    // console.log("clicked");
   };
 
+  const data = useUserFind();
 
-   const data=useUserFind()
-
-
-   useEffect(()=>{
-       if(data){
-          setFormData(data) 
-       }
-        else{
-          // setOpen(true)
-        }
-   },[data])
-     
-
+  useEffect(() => {
+    if (data) {
+      setFormData(data);
+    } else {
+      // setOpen(true)
+    }
+  }, [data]);
 
   const fields = [
     { name: "name", type: "text", value: profile.name },
@@ -70,49 +80,101 @@ export default function JobDetails() {
     { name: "skills", type: "text", value: profile.skills },
     { name: "experience", type: "text", value: profile.experience },
     { name: "location", type: "text", value: profile.location },
+    {name: "coverLetter", type: "text", value: profile.coverLetter },
     { name: "resumePath", type: "file", value: profile.resumePath },
   ];
 
-    const handleClickApply = (id) => {
+  const handleClickApply = (id) => {
     console.log("applyClicked", id);
 
     if (user === null) {
       handleClickSnack("Please log in");
-    } 
-      if(user!==null) {
+    }
+    if (user !== null) {
       // Proceed with application logic
-     console.log("else is working")
-        setOpen(true)
+      console.log("else is working");
+      setOpen(true);
     }
   };
 
-   const handleClose=()=>{
-        
-          setOpen(false)
-   }
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-   const handleFieldChange = (name, value) => {
+  const handleFieldChange = (name, value) => {
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
+  const handleSubmit = async () => {
+    console.log("hello", profile);
 
+    const response = await apply(profile,id);
+    console.log(response)
+
+      if(response.message==="Application submitted successfully"){
+
+              // alert("sucees add")
+              showSnackbar("Application submitted successfully", "success");
+      }else {
+        showSnackbar("Failed to submit application", "error");
+      }
+
+      setOpen(false)
+
+  };
+
+  const showSnackbar = (message, severity) => {
+    setSnackbarMessage(message);
+    setSnackbarSeverity(severity);
+    setSnackbarOpen(true);
+  };
+
+  const handleCloseSnackbar = () => {
+    setSnackbarOpen(false);
+  };
 
   return (
     <div>
       {jobDetail ? ( // Check if jobDetail is available
-        <JobListingCard key={jobDetail._id} job={jobDetail} value={"apply"} apply={handleClickApply}  />
+        <JobListingCard
+          key={jobDetail._id}
+          job={jobDetail}
+          value={"apply"}
+          apply={handleClickApply}
+        />
       ) : (
         <div>Loading job details...</div> // Show loading message
       )}
-        
+
       <div>
-        <SinglePage data={jobDetail}/>
+        <SinglePage data={jobDetail} />
       </div>
 
-        { Open===true? <CommonModal title={"apply"} onClose={handleClose} isOpen={Open} children={fields} onFieldChange={handleFieldChange}  />:""}
+      {Open === true ? (
+        <CommonModal
+          title={"apply"}
+          onClose={handleClose}
+          isOpen={Open}
+          children={fields}
+          onFieldChange={handleFieldChange}
+          onSubmit={handleSubmit}
+        />
+      ) : (
+        ""
+      )}
+
+        <div>
+        <Snackbar
+        open={snackbarOpen}
+        onClose={handleCloseSnackbar}
+        message={snackbarMessage}
+        autoHideDuration={4000}
+        severity={snackbarSeverity} // Custom prop for Snackbar styling if needed
+      />
+        </div>
     </div>
   );
 }

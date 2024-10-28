@@ -24,7 +24,7 @@ export default function Profile() {
     resume: null, // for file input
   });
 
-  console.log("formData", formData);
+  // console.log("formData", formData);
 
   const handleFieldChange = (name, value) => {
     setFormData((prev) => ({
@@ -43,7 +43,7 @@ export default function Profile() {
 
   const handleSubmit = async () => {
     const response = await AddUserDetails(formData);
-
+     
     setOpen(false);
   };
 
