@@ -23,6 +23,8 @@ export default function JobDetails() {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+  const vertical = "top"; // Change if needed
+  const horizontal = "center";
 
   const [profile, setFormData] = useState({
     name: "",
@@ -89,8 +91,8 @@ export default function JobDetails() {
   const handleClickApply = (id) => {
     console.log("applyClicked", id);
 
-    if (user === null) {
-      handleClickSnack("Please log in");
+    if(user===null){
+      showSnackbar("please login");
     }
     if (user !== null) {
       // Proceed with application logic
@@ -112,6 +114,8 @@ export default function JobDetails() {
 
   const handleSubmit = async () => {
     console.log("hello", profile);
+
+  
 
     const response = await apply(profile,id);
     console.log(response)
@@ -194,11 +198,13 @@ export default function JobDetails() {
 
         <div>
         <Snackbar
+        sx={{backgroundColor:"#63f2a4",color:"white"}}
+        anchorOrigin={{ vertical, horizontal }}
         open={snackbarOpen}
         onClose={handleCloseSnackbar}
         message={snackbarMessage}
-        autoHideDuration={4000}
-        severity={snackbarSeverity} // Custom prop for Snackbar styling if needed
+        autoHideDuration={3000}
+        // severity={snackbarSeverity} // Custom prop for Snackbar styling if needed
       />
         </div>
     </div>
