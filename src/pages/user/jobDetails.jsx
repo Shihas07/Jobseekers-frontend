@@ -164,7 +164,17 @@ export default function JobDetails() {
 
 
    const isJobApplied = appliedJobIds.includes(id);
+
+
   //  console.log(isJobApplied)
+//here iam creating a function handle view applied details
+const handleView=()=>{
+
+    console.log("shihas is here")
+
+}
+     
+     
 
   return (
     <div>
@@ -174,6 +184,7 @@ export default function JobDetails() {
           job={jobDetail}
           value={isJobApplied ? "view details" : "apply"}
           apply={handleClickApply}
+          handleViewDetails={handleView}
         />
       ) : (
         <div>Loading job details...</div> // Show loading message

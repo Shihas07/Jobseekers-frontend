@@ -98,6 +98,7 @@ const Navbar = () => {
               color="inherit"
               aria-label="menu"
               onClick={toggleMenu}
+              sx={{cursor:"pointer"}}
             >
               <MenuIcon className="text-white" />
             </IconButton>
@@ -147,7 +148,7 @@ const Navbar = () => {
               <>
                 <Typography variant="body1" color="white">
                   Welcome, {userDetails.name} 
-                  <Person2Icon onClick={navi} sx={{ color: 'primary.main', fontSize: 30 }} />
+                  <Person2Icon onClick={navi} sx={{ color: 'primary.main', fontSize: 30,cursor:"pointer" }} />
                     
                 </Typography>
                 <Button variant="text" onClick={Logout}  className="text-gray-300 hover:text-white">
