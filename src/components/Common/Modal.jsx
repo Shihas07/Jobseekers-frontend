@@ -7,6 +7,7 @@ import {
   Button,
   TextField,
 } from "@mui/material";
+import SendIcon from '@mui/icons-material/Send';
 
 export default function CommonModal({
   isOpen,
@@ -56,7 +57,7 @@ export default function CommonModal({
         <Button onClick={onClose} color="secondary">
           Cancel
         </Button>
-        <Button onClick={onSubmit} color="primary" variant="contained">
+        <Button onClick={onSubmit} color="primary" variant="contained" startIcon={<SendIcon/>}>
           Submit
         </Button>
       </DialogActions>
