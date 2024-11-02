@@ -7,11 +7,9 @@ import CommonModal from "../../components/Common/Modal";
 import useUserFind from "../../utilities/useUserFind";
 import { useSelector } from "react-redux";
 import apply from "../../services/user/addApplyjob";
-import Snackbar from '@mui/material/Snackbar';
+import Snackbar from "@mui/material/Snackbar";
 import getAppliedJOb from "../../services/user/appliedJob";
-
-
-
+import ViewAppliedDetals from "../../components/user/viewAppliedDetals";
 
 export default function JobDetails() {
   // const {id}=useParams()
@@ -19,10 +17,11 @@ export default function JobDetails() {
   const user = useSelector((state) => state.user.userDetails);
   const [jobDetail, setJobDetail] = useState("");
   const [Open, setOpen] = useState(false);
-  const [appliedJobIds, setAppliedJobIds] = useState([]); 
+  const [appliedJobIds, setAppliedJobIds] = useState([]);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+  const [viewAppliedDetalsOpen, setViewAppliedOpen] = useState(false);
   const vertical = "top"; // Change if needed
   const horizontal = "center";
 
@@ -32,12 +31,11 @@ export default function JobDetails() {
     phone: "",
     skills: "",
     location: "",
-      coverLetter:"",
+    coverLetter: "",
     experience: "",
     resumePath: null,
-  
-     // for file input
 
+    // for file input
   });
   // console.log("jobDetails",profile)
 
@@ -84,14 +82,14 @@ export default function JobDetails() {
     { name: "skills", type: "text", value: profile.skills },
     { name: "experience", type: "text", value: profile.experience },
     { name: "location", type: "text", value: profile.location },
-    {name: "coverLetter", type: "text", value: profile.coverLetter },
+    { name: "coverLetter", type: "text", value: profile.coverLetter },
     { name: "resumePath", type: "file", value: profile.resumePath },
   ];
 
   const handleClickApply = (id) => {
     console.log("applyClicked", id);
 
-    if(user===null){
+    if (user === null) {
       showSnackbar("please login");
     }
     if (user !== null) {
@@ -115,21 +113,17 @@ export default function JobDetails() {
   const handleSubmit = async () => {
     console.log("hello", profile);
 
-  
+    const response = await apply(profile, id);
+    console.log(response);
 
-    const response = await apply(profile,id);
-    console.log(response)
+    if (response.message === "Application submitted successfully") {
+      // alert("sucees add")
+      showSnackbar("Application submitted successfully", "success");
+    } else {
+      showSnackbar("Failed to submit application", "error");
+    }
 
-      if(response.message==="Application submitted successfully"){
-
-              // alert("sucees add")
-              showSnackbar("Application submitted successfully", "success");
-      }else {
-        showSnackbar("Failed to submit application", "error");
-      }
-
-      setOpen(false)
-
+    setOpen(false);
   };
 
   const showSnackbar = (message, severity) => {
@@ -142,39 +136,33 @@ export default function JobDetails() {
     setSnackbarOpen(false);
   };
 
-    console.log("user",user)
-    const appliedJob= async () => {
-      if (user && user.id) {
-        try {
-          const response = await getAppliedJOb(user.id);
-          if (response && Array.isArray(response.jobIds)) {
-            setAppliedJobIds(response.jobIds);
-          }
-        } catch (error) {
-          console.error("Error fetching applied jobs:", error);
+  console.log("user", user);
+  const appliedJob = async () => {
+    if (user && user.id) {
+      try {
+        const response = await getAppliedJOb(user.id);
+        if (response && Array.isArray(response.jobIds)) {
+          setAppliedJobIds(response.jobIds);
         }
+      } catch (error) {
+        console.error("Error fetching applied jobs:", error);
       }
-    };
+    }
+  };
 
-   useEffect(()=>{
-     
-    appliedJob()
+  useEffect(() => {
+    appliedJob();
+  }, [user, snackbarOpen]);
 
-   },[user,snackbarOpen])
-
-
-   const isJobApplied = appliedJobIds.includes(id);
-
+  const isJobApplied = appliedJobIds.includes(id);
 
   //  console.log(isJobApplied)
-//here iam creating a function handle view applied details
-const handleView=()=>{
+  //here iam creating a function handle view applied details
+  const handleView = () => {
+    console.log("shihas is here");
 
-    console.log("shihas is here")
-
-}
-     
-     
+    setViewAppliedOpen(!viewAppliedDetalsOpen);
+  };
 
   return (
     <div>
@@ -207,17 +195,20 @@ const handleView=()=>{
         ""
       )}
 
-        <div>
+      <div>
         <Snackbar
-        sx={{backgroundColor:"#63f2a4",color:"white"}}
-        anchorOrigin={{ vertical, horizontal }}
-        open={snackbarOpen}
-        onClose={handleCloseSnackbar}
-        message={snackbarMessage}
-        autoHideDuration={3000}
-        // severity={snackbarSeverity} // Custom prop for Snackbar styling if needed
-      />
-        </div>
+          sx={{ backgroundColor: "#63f2a4", color: "white" }}
+          anchorOrigin={{ vertical, horizontal }}
+          open={snackbarOpen}
+          onClose={handleCloseSnackbar}
+          message={snackbarMessage}
+          autoHideDuration={3000}
+          // severity={snackbarSeverity} // Custom prop for Snackbar styling if needed
+        />
+      </div>
+      <div>
+        <ViewAppliedDetals open={viewAppliedDetalsOpen} setOpen={setViewAppliedOpen}/>
+      </div>
     </div>
   );
 }
