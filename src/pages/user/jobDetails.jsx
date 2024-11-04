@@ -10,6 +10,7 @@ import apply from "../../services/user/addApplyjob";
 import Snackbar from "@mui/material/Snackbar";
 import getAppliedJOb from "../../services/user/appliedJob";
 import ViewAppliedDetals from "../../components/user/viewAppliedDetals";
+import appliedData from "../../services/user/getAppliedDetails";
 
 export default function JobDetails() {
   // const {id}=useParams()
@@ -22,8 +23,11 @@ export default function JobDetails() {
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
   const [viewAppliedDetalsOpen, setViewAppliedOpen] = useState(false);
+  const[stausApplied,setAppliedStatus]=useState([])
+  console.log("status",stausApplied);
   const vertical = "top"; // Change if needed
   const horizontal = "center";
+ 
 
   const [profile, setFormData] = useState({
     name: "",
@@ -40,7 +44,7 @@ export default function JobDetails() {
   // console.log("jobDetails",profile)
 
   const { id } = useParams();
-  console.log("jobid", id);
+  // console.log("jobid", id);
 
   const jobGetFunc = async () => {
     try {
@@ -87,14 +91,14 @@ export default function JobDetails() {
   ];
 
   const handleClickApply = (id) => {
-    console.log("applyClicked", id);
+    // console.log("applyClicked", id);
 
     if (user === null) {
       showSnackbar("please login");
     }
     if (user !== null) {
       // Proceed with application logic
-      console.log("else is working");
+      // console.log("else is working");
       setOpen(true);
     }
   };
@@ -111,10 +115,10 @@ export default function JobDetails() {
   };
 
   const handleSubmit = async () => {
-    console.log("hello", profile);
+    // console.log("hello", profile);
 
     const response = await apply(profile, id);
-    console.log(response);
+    // console.log(response);
 
     if (response.message === "Application submitted successfully") {
       // alert("sucees add")
@@ -136,7 +140,7 @@ export default function JobDetails() {
     setSnackbarOpen(false);
   };
 
-  console.log("user", user);
+  // console.log("user", user);
   const appliedJob = async () => {
     if (user && user.id) {
       try {
@@ -152,6 +156,8 @@ export default function JobDetails() {
 
   useEffect(() => {
     appliedJob();
+
+    ViewApplicationFunc();
   }, [user, snackbarOpen]);
 
   const isJobApplied = appliedJobIds.includes(id);
@@ -159,14 +165,26 @@ export default function JobDetails() {
   //  console.log(isJobApplied)
   //here iam creating a function handle view applied details
   const handleView = () => {
-    console.log("shihas is here");
+    // console.log("shihas is here");
 
     setViewAppliedOpen(!viewAppliedDetalsOpen);
   };
 
+  const ViewApplicationFunc = async () => {
+    const response = await appliedData(user.id, id);
+    console.log("respy",response)
+     if(response){
+      setAppliedStatus(response)
+     }
+  };
+
+  useEffect(() => {
+    ViewApplicationFunc();
+  }, [id,user]);
+
   return (
     <div>
-      {jobDetail ? ( // Check if jobDetail is available
+      {jobDetail ? (
         <JobListingCard
           key={jobDetail._id}
           job={jobDetail}
@@ -207,7 +225,12 @@ export default function JobDetails() {
         />
       </div>
       <div>
-        <ViewAppliedDetals open={viewAppliedDetalsOpen} setOpen={setViewAppliedOpen}/>
+        <ViewAppliedDetals
+          open={viewAppliedDetalsOpen}
+          setOpen={setViewAppliedOpen}
+          job={jobDetail}
+          status={stausApplied}
+        />
       </div>
     </div>
   );
