@@ -3,10 +3,10 @@ import axiosInstance from "../../utilities/axiosInstance";
 const AddUserDetails = async (formData) => {
   console.log('fomr data in axios',formData)
   try {
-    // Create a new FormData object if formData isn't already FormData
+   
     const formDataToSend = new FormData();
 
-    // Add file separately if the file key is `resumeFile`
+  
     if (formData.resumeFile) {
       formDataToSend.append("Resume", formData.resumeFile); 
     }
