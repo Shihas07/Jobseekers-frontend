@@ -9,6 +9,7 @@ import CommonModal from "../../components/Common/Modal";
 import { Field } from "formik";
 import useUserFind from "../../utilities/useUserFind";
 import AddUserDetails from "../../services/user/addUserProfile";
+import AppliedDetails from "../../components/user/resume";
 
 export default function Profile() {
   const [isOpen, setOpen] = useState(false);
@@ -73,7 +74,7 @@ export default function Profile() {
         <NotificationBar />
 
         <div className="mx-20">
-          <Resume />
+          <AppliedDetails/>
         </div>
       </div>
       {isOpen ? (
