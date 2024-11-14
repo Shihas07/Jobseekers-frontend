@@ -31,19 +31,21 @@ export default function Sidebar({ title, navItems }) {
         height: '100vh', 
         padding: 2,
         display: 'flex', // Use flexbox to layout the sidebar items
-        flexDirection: 'column', // Align items in column
+        flexDirection: 'column',
+        
+         // Align items in column
       }}
     >
       <Typography variant="h6" sx={{ marginBottom: 2, color: 'white' }}>
         {title}
       </Typography>
-      <List>
+      <List >
         {navItems.map((item, index) => (
-          <ListItem button key={index} onClick={() => handleNavigation(item.path)}>
+          <ListItem  button key={index} onClick={() => handleNavigation(item.path)}>
             <ListItemIcon sx={{ color: 'white' }}> {/* Set icon color to white */}
               {item.icon}
             </ListItemIcon>
-            <ListItemText primary={item.label} sx={{ color: 'white' }} /> {/* Optional: set text color to white */}
+            <ListItemText   primary={item.label} sx={{ color: 'white' }} /> {/* Optional: set text color to white */}
           </ListItem>
         ))}
       </List>

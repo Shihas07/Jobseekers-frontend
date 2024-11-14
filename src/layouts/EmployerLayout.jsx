@@ -11,7 +11,7 @@ export default function EmployerLayout() {
   const navItems = [
     { label: "DashBoard", icon: <HomeIcon />, path: "/employer/dashboard" },
     { label: "Job Management", icon: <UserIcon />, path: "/employer/jobManagement" },
-    { label: "Application Mangent", icon: <FolderIcon />,   },
+    { label: "Application Mangent", icon: <FolderIcon />,path: "/employer/ApplicationMangement"},
 
     { label: "Profile Management", icon: <JobIcon />  },
     { label: "Payment", icon: <PaymentIcon />,path:"/employer/PaymentMangeMent"},
@@ -21,7 +21,7 @@ export default function EmployerLayout() {
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">
       {/* Sidebar on the left */}
-      <div className="w-full lg:w-1/4 text-white">
+      <div className="w-full lg:w-1/4 text-white cursor-pointer" >
         <Sidebar title={title} navItems={navItems} />
       </div>
 

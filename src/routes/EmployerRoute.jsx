@@ -6,6 +6,7 @@ import Dashboard from "../pages/employer/Dashborad";
 import EmployerLayout from "../layouts/EmployerLayout";
 import PaymentPage from "../pages/employer/PaymentPage";
 import JobManagementPage from "../pages/employer/jobManagementPage";
+import ApplicationMangement from "../pages/employer/ApplicationMangemeny";
 
 export default function EmployerRoute() {
   return (
@@ -14,11 +15,13 @@ export default function EmployerRoute() {
         <Route path="signup" element={<Signup />} />
         <Route path="login" element={<LoginPage />} />
         <Route element={<EmployerLayout />}>
-           <Route path="dashboard" element={<Dashboard />} />
-           <Route path="paymentMangeMent" element={<PaymentPage />} />
-           <Route path="jobManageMent" element={<JobManagementPage />} />
-
-
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="paymentMangeMent" element={<PaymentPage />} />
+          <Route path="jobManageMent" element={<JobManagementPage />} />
+          <Route
+            path="ApplicationMangement"
+            element={<ApplicationMangement />}
+          />
         </Route>
       </Routes>
     </div>
