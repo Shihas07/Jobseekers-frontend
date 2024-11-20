@@ -16,13 +16,22 @@ import ApplicationDetails from "./applicationDetails";
 export default function ApplicationTable() {
 
   const [applicants,serApplicants]=useState([])
+  const [modalData,setModalData]=useState([])
   console.log("applicants",applicants)
   const employer = useSelector((state) => state.employer.employerDetails);
 
 
   const [open,setOpen]=useState(false)
 
-    const handleModalOpen=()=>{
+    const handleModalOpen=(key)=>{
+      // console.log("key",key)
+        
+       const result= applicants.filter((data,ind)=>ind===key)
+
+       setModalData(result)
+
+      //  console.log("result",result)
+        
         setOpen(true)
     }
 
@@ -77,7 +86,7 @@ export default function ApplicationTable() {
                 <TableCell>{appliedDate}</TableCell>
                 <TableCell>{applicant.status}</TableCell>
                 <TableCell>
-                  <Button variant="outlined" backgroundColor="secondary" onClick={handleModalOpen}> view detais</Button>
+                  <Button variant="outlined" backgroundColor="secondary" key={index} onClick={()=>handleModalOpen(index)}> view detais</Button>
                 </TableCell>
               </TableRow>
             );
@@ -87,7 +96,7 @@ export default function ApplicationTable() {
     </TableContainer>
 
        <div>
-       <ApplicationDetails open={open} handleClose={handleClose} />    
+       <ApplicationDetails applicant={modalData} open={open} handleClose={handleClose} />    
        </div>
        </>
   );
