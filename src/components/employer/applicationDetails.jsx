@@ -45,7 +45,7 @@ export default function ApplicationDetails({ open, handleClose, applicant }) {
   href={`http://localhost:3000/employer/${data.resumePath}`} // Make sure the resumePath is correct
   target="_blank"
   rel="noopener noreferrer"
-  download // This will trigger the download
+  download 
 >
   <Button>Download CV</Button>
 </a>

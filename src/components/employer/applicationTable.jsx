@@ -86,7 +86,7 @@ export default function ApplicationTable() {
                 <TableCell>{appliedDate}</TableCell>
                 <TableCell>{applicant.status}</TableCell>
                 <TableCell>
-                  <Button variant="outlined" backgroundColor="secondary" key={index} onClick={()=>handleModalOpen(index)}> view detais</Button>
+                  <Button variant="outlined" backgroundColor="primary" key={index} onClick={()=>handleModalOpen(index)}> view detais</Button>
                 </TableCell>
               </TableRow>
             );
