@@ -42,7 +42,7 @@ export default function ApplicationDetails({ open, handleClose, applicant }) {
                 Resume is<br></br>
                 
                 <a
-  href={`http://localhost:3000/employer/${data.resumePath}`} // Make sure the resumePath is correct
+  href={`http://localhost:3000/employer/${data.resumePath}`} 
   target="_blank"
   rel="noopener noreferrer"
   download 
@@ -57,9 +57,15 @@ export default function ApplicationDetails({ open, handleClose, applicant }) {
                 coverLetter <br />{" "}
                 {data.coverLetter ? data.coverLetter : "no letter"}
               </Typography>
+                 <Box >
+              <Button  sx={{backgroundColor:"green",color:"white",m:4,px:4}}>select</Button>
+              <Button sx={{backgroundColor:"red",color:'white'}}>Not select</Button>
+          </Box>
             </>
           ))}
         </Box>
+
+       
       </Modal>
     </div>
   );

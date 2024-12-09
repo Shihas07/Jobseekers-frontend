@@ -67,7 +67,7 @@ export default function ApplicationTable() {
         <TableBody sx={{ backgroundColor: "" }}>
           <TableRow>
             <TableCell>applicant  name</TableCell>
-            <TableCell>position forr applied</TableCell>
+            <TableCell>position for applied</TableCell>
             <TableCell>applied date</TableCell>
             <TableCell>status</TableCell>
             <TableCell>actions</TableCell>
