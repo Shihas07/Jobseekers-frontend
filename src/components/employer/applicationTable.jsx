@@ -12,6 +12,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import ApplicantsGet from "./getApplicants";
 import ApplicationDetails from "./applicationDetails";
+import ChatIcon from '@mui/icons-material/Chat';
 
 export default function ApplicationTable() {
 
@@ -86,8 +87,8 @@ export default function ApplicationTable() {
                 <TableCell>{appliedDate}</TableCell>
                 <TableCell>{applicant.status}</TableCell>
                 <TableCell>
-                  <Button variant="outlined" backgroundColor="primary" key={index} onClick={()=>handleModalOpen(index)}> view detais</Button>
-                </TableCell>
+{   applicant.status==="viewed"?  <Button variant="outlined" color="success" sx={{px:5}}><ChatIcon/></Button>       :      <Button variant="outlined" backgroundColor="primary" key={index} onClick={()=>handleModalOpen(index)}> view detais</Button>
+}                </TableCell>
               </TableRow>
             );
           })}
